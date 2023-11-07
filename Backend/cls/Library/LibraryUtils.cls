@@ -197,7 +197,49 @@ ClassMethod PrintAllBooks() As %Stream.Object
     Write tRS
     If tRS.%Next() {
         Set obj = ##class(%DynamicObject).%FromJSON(tRS.%GetData(1))
+
     }
+    Set iter = obj.%GetIterator()
+     While iter.%GetNext(.key, .value ) {
+        
+
+
+
+
+       Set FriendId = value.%Get("Friend")
+       Set friendObj = ##class(%DynamicObject).%New()
+       Do friendObj.%Set("ID", FriendId)
+       Do friendObj.%Set("Name", "")
+       If FriendId '= ""{
+        Set name = ##class(Library.Person).%OpenId(FriendId).Name
+        Do friendObj.%Set("Name", name)
+        } 
+        Set AuthorId = value.%Get("Author")
+       Set AuthorObj = ##class(%DynamicObject).%New()
+       Do AuthorObj.%Set("ID", AuthorId)
+       Do AuthorObj.%Set("Name", "")
+       If AuthorId '= ""{
+        Set name = ##class(Library.Person).%OpenId(AuthorId).Name
+        Do AuthorObj.%Set("Name", name)
+        }
+        Do value.%Set("Author",AuthorObj )
+        Do value.%Set("Friend",friendObj )
+       /* Set AuthorId = value.%Get("Author")
+       If FriendId = ""{
+        Do value.%Set("FriendName", "")
+       }Else {
+        Set Friendname = ##class(Library.Person).%OpenId(FriendId).Name
+        Do value.%Set("FriendName",Friendname )
+       }
+       If AuthorId = ""{
+        Do value.%Set("AuthorName", "")
+       }Else {
+        Set Authorname = ##class(Library.Person).%OpenId(AuthorId).Name
+        Do value.%Set("AuthorName",Authorname )
+       } */
+    
+     }
+    
     
     
 
