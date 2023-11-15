@@ -2,6 +2,6 @@
     "objectscript.conn": {
         "server": "slearn2",
         "ns": "TRAINING",
-        "active": true
+        "active": false
     }
 }
