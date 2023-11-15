@@ -22,6 +22,7 @@ XData OpenAPI [ MimeType = application/json ]
       "post":{
         "description":"Add a new book",
         "operationId":"AddingBook",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
@@ -56,6 +57,7 @@ XData OpenAPI [ MimeType = application/json ]
       "post":{
         "description":"Add a new friend",
         "operationId":"AddingFriend",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
@@ -123,6 +125,7 @@ XData OpenAPI [ MimeType = application/json ]
       "get":{
         "description":"list of all the books",
         "operationId":"GetAllBooks",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
@@ -140,6 +143,7 @@ XData OpenAPI [ MimeType = application/json ]
       "get":{
         "description":"list of all the people",
         "operationId":"GetAllPerson",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
@@ -157,6 +161,7 @@ XData OpenAPI [ MimeType = application/json ]
       "post":{
         "description":"loan a book to a friend",
         "operationId":"LoanBook",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
@@ -186,6 +191,7 @@ XData OpenAPI [ MimeType = application/json ]
       "post":{
         "description":"return a book from a friend",
         "operationId":"ReturnBook",
+        "x-ISC_CORS": true,
         "produces":[
           "application/json"
         ],
