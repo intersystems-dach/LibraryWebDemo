@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-card class="text-center pa-1">
-      <v-card-title class="justify-center display-1 mb-2">{{ $t('register.title') }}</v-card-title>
+      <v-card-title class="justify-center display-1 mb-2">{{
+        $t("register.title")
+      }}</v-card-title>
       <v-card-subtitle>Let's build amazing products</v-card-subtitle>
 
       <!-- sign up form -->
@@ -55,9 +57,12 @@
             x-large
             color="primary"
             @click="submit"
-          >{{ $t('register.button') }}</v-btn>
+            >{{ $t("register.button") }}</v-btn
+          >
 
-          <div class="caption font-weight-bold text-uppercase my-3">{{ $t('register.orsign') }}</div>
+          <div class="caption font-weight-bold text-uppercase my-3">
+            {{ $t("register.orsign") }}
+          </div>
 
           <!-- external providers list -->
           <v-btn
@@ -74,23 +79,25 @@
             {{ provider.label }}
           </v-btn>
 
-          <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
+          <div v-if="errorProvider" class="error--text">
+            {{ errorProviderMessages }}
+          </div>
 
           <div class="mt-5 overline">
-            {{ $t('register.agree') }}
+            {{ $t("register.agree") }}
             <br />
-            <router-link to="">{{ $t('common.tos') }}</router-link>
+            <router-link to="">{{ $t("common.tos") }}</router-link>
             &
-            <router-link to="">{{ $t('common.policy') }}</router-link>
+            <router-link to="">{{ $t("common.policy") }}</router-link>
           </div>
         </v-form>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      {{ $t('register.account') }}
+      {{ $t("register.account") }}
       <router-link to="/auth/signin" class="font-weight-bold">
-        {{ $t('register.signin') }}
+        {{ $t("register.signin") }}
       </router-link>
     </div>
   </div>
@@ -114,62 +121,65 @@ export default {
 
       // form
       isFormValid: true,
-      email: '',
-      password: '',
-      name: '',
+      email: "",
+      password: "",
+      name: "",
 
       // form error
       errorName: false,
       errorEmail: false,
       errorPassword: false,
-      errorNameMessage: '',
-      errorEmailMessage: '',
-      errorPasswordMessage: '',
+      errorNameMessage: "",
+      errorEmailMessage: "",
+      errorPasswordMessage: "",
 
       errorProvider: false,
-      errorProviderMessages: '',
+      errorProviderMessages: "",
 
       // show password field
       showPassword: false,
 
       // external providers
-      providers: [{
-        id: 'google',
-        label: 'Google',
-        isLoading: false
-      }, {
-        id: 'facebook',
-        label: 'Facebook',
-        isLoading: false
-      }],
+      providers: [
+        {
+          id: "google",
+          label: "Google",
+          isLoading: false,
+        },
+        {
+          id: "facebook",
+          label: "Facebook",
+          isLoading: false,
+        },
+      ],
 
       // input rules
       rules: {
-        required: (value) => (value && Boolean(value)) || 'Required'
-      }
-    }
+        required: (value) => (value && Boolean(value)) || "Required",
+      },
+    };
   },
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true
-        this.isSignUpDisabled = true
-        this.signUp(this.email, this.password)
+        this.isLoading = true;
+        this.isSignUpDisabled = true;
+        this.signUp(this.email, this.password);
       }
     },
     signUp(email, password) {},
     signInProvider(provider) {},
     resetErrors() {
-      this.errorName = false
-      this.errorEmail = false
-      this.errorPassword = false
-      this.errorNameMessage = ''
-      this.errorEmailMessage = ''
-      this.errorPasswordMessage = ''
+      this.errorName = false;
+      this.errorEmail = false;
+      this.errorPassword = false;
+      this.errorNameMessage = "";
+      this.errorEmailMessage = "";
+      this.errorPasswordMessage = "";
 
-      this.errorProvider = false
-      this.errorProviderMessages = ''
-    }
-  }
-}
+      this.errorProvider = false;
+      this.errorProviderMessages = "";
+    },
+  },
+};
 </script>

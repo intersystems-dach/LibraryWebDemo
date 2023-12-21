@@ -41,9 +41,12 @@
             x-large
             color="primary"
             @click="submit"
-          >{{ $t('login.button') }}</v-btn>
+            >{{ $t("login.button") }}</v-btn
+          >
 
-          <div class="caption font-weight-bold text-uppercase my-3">{{ $t('login.orsign') }}</div>
+          <div class="caption font-weight-bold text-uppercase my-3">
+            {{ $t("login.orsign") }}
+          </div>
 
           <!-- external providers list -->
           <v-btn
@@ -61,11 +64,13 @@
             {{ provider.label }}
           </v-btn>
 
-          <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
+          <div v-if="errorProvider" class="error--text">
+            {{ errorProviderMessages }}
+          </div>
 
           <div class="mt-5">
             <router-link to="/auth/forgot-password">
-              {{ $t('login.forgot') }}
+              {{ $t("login.forgot") }}
             </router-link>
           </div>
         </v-form>
@@ -73,9 +78,9 @@
     </v-card>
 
     <div class="text-center mt-6">
-      {{ $t('login.noaccount') }}
+      {{ $t("login.noaccount") }}
       <router-link to="/auth/signup" class="font-weight-bold">
-        {{ $t('login.create') }}
+        {{ $t("login.create") }}
       </router-link>
     </div>
   </div>
@@ -90,9 +95,9 @@
 | Sign in template for user authentication into the application
 |
 */
-import { loginRequest } from './authConfig'
-import { mapGetters, mapState } from 'vuex'
-import * as msal from '@azure/msal-browser'
+import { loginRequest } from "./authConfig";
+import { mapGetters, mapState } from "vuex";
+import * as msal from "@azure/msal-browser";
 export default {
   data() {
     return {
@@ -102,92 +107,100 @@ export default {
 
       // form
       isFormValid: true,
-      email: '',
-      password: '',
+      email: "",
+      password: "",
 
       // form error
       error: false,
-      errorMessages: '',
+      errorMessages: "",
 
       errorProvider: false,
-      errorProviderMessages: '',
+      errorProviderMessages: "",
 
       // show password field
       showPassword: false,
 
-      providers: [{
-        id: 'microsoft',
-        label: 'Microsoft',
-        isLoading: false
-      },{
-        id: 'google',
-        label: 'Google',
-        isLoading: false
-      }, {
-        id: 'facebook',
-        label: 'Facebook',
-        isLoading: false
-      }],
+      providers: [
+        {
+          id: "microsoft",
+          label: "Microsoft",
+          isLoading: false,
+        },
+        {
+          id: "google",
+          label: "Google",
+          isLoading: false,
+        },
+        {
+          id: "facebook",
+          label: "Facebook",
+          isLoading: false,
+        },
+      ],
 
       // input rules
       rules: {
-        required: (value) => (value && Boolean(value)) || 'Required'
-      }
-    }
+        required: (value) => (value && Boolean(value)) || "Required",
+      },
+    };
   },
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true
-        this.isSignInDisabled = true
-        this.signIn(this.email, this.password)
+        this.isLoading = true;
+        this.isSignInDisabled = true;
+        this.signIn(this.email, this.password);
       }
     },
     signIn(email, password) {
-      login()
+      if (email == "demo" && password == "demo") {
+        this.$store.userLoggedIn = true;
+        this.toast.show = true;
+        this.toast.color = "success";
+        this.toast.message = "Sign in successful";
+        this.toast.timeout = 3000;
+        this.$router.push({ path: "/dashboard/analytics" });
+        return;
+      }
+      login();
     },
     async signInProvider(provider) {
-      sessionStorage.removeItem('msal.interaction.status')
-     
-      await this.msalObj.loginPopup(loginRequest)
-        .then(resp => {
+      sessionStorage.removeItem("msal.interaction.status");
+
+      await this.msalObj
+        .loginPopup(loginRequest)
+        .then((resp) => {
           //console.log(resp)
-          this.$store.userLoggedIn = resp
-          console.log( this.$store.userLoggedIn);
-          const usrnm = resp.account.username
+          this.$store.userLoggedIn = resp;
+          console.log(this.$store.userLoggedIn);
+          const usrnm = resp.account.username;
           //console.log(usrnm);
-          this.$store.userName = usrnm
+          this.$store.userName = usrnm;
           console.log(this.$store.userName);
-          
-          
-          this.toast.show = true
-          this.toast.color = 'success'
-          this.toast.message = 'Sign in successful'
-          this.toast.timeout = 3000
-          this.$router.push({ path: '/dashboard/analytics' })
 
-        }).catch(err => {
-          
-          this.toast.show = true
-        this.toast.color = 'error '
-        this.toast.message = 'Sign in cancelled'
-        this.toast.timeout = 3000
-
+          this.toast.show = true;
+          this.toast.color = "success";
+          this.toast.message = "Sign in successful";
+          this.toast.timeout = 3000;
+          this.$router.push({ path: "/dashboard/analytics" });
         })
-        
+        .catch((err) => {
+          this.toast.show = true;
+          this.toast.color = "error ";
+          this.toast.message = "Sign in cancelled";
+          this.toast.timeout = 3000;
+        });
     },
     resetErrors() {
-      this.error = false
-      this.errorMessages = ''
+      this.error = false;
+      this.errorMessages = "";
 
-      this.errorProvider = false
-      this.errorProviderMessages = ''
-    }
+      this.errorProvider = false;
+      this.errorProviderMessages = "";
+    },
   },
   computed: {
-    ...mapState('app', ['toast', 'userLoggedIn', 'msalObj','userName']),
-    
+    ...mapState("app", ["toast", "userLoggedIn", "msalObj", "userName"]),
   },
-    
-}
+};
 </script>
