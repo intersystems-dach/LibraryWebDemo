@@ -50,4 +50,4 @@ _**Restart the development server after configuration changes!**_
 
 ---
 
-By [Shubham S.](https://github.com/sumalyareact) & [Philipp B.](https://github.com/phil1436)
+By [Shubham S.](https://github.com/sumalyareact) & [Philipp B.](https://github.com/cophilot)
