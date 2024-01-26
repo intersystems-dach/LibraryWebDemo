@@ -49,7 +49,6 @@ export const loadExampleBooks = () => {
 export const loadExamplePersons = () => {
   const baseUrl = `${process.env.VUE_APP_IRIS_API_URL}/LibraryApi/addfriend`;
   examplePersons.forEach((person) => {
-    axios;
     fetch(baseUrl, {
       method: "POST",
       headers: {
